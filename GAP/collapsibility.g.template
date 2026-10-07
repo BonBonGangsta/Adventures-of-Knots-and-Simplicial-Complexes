@@ -1,0 +1,66 @@
+file := "<<<FILE_NAME>>>";
+SC_Name := "<<<SC_NAME>>>";
+# stop warning and load packing messages from printing every run
+SetInfoLevel(InfoPackageLoading, 0);
+SetInfoLevel(InfoWarning, 0);
+
+LoadPackage("simpcomp");
+Print(StringTime(Runtime()),"\n");
+# load the file containing the facets already defined.
+Read(file);
+if not IsBound(rounds) or rounds = fail then
+    rounds:= 100;
+fi;
+
+A:= SCFromFacets(facets);
+success := false;
+
+for i in [0..rounds-1] do
+    greedyResult:= SCCollapseGreedy(A);
+    # Assign values and print results
+    greedyDim := Int(greedyResult.Dim);
+    greedyNumV := Int(SCNumFaces(greedyResult,0));
+    Print("Round: ", String(i) ," Dimension of Greedy test: ", String(greedyDim), "\n");
+    Print("Round: ", String(i) ," Number of Vertices from Greedy test: ", greedyNumV, "\n");
+    if greedyDim = 0 and greedyNumV = 1 then
+        Print("SC is collapsable! after ", String(i), " number of rounds");
+        Print("\n******************DONE*************************\n");
+        success := true;
+        QUIT_GAP(0);
+    fi;
+    Print("\n");
+od;
+if not success then
+    lexResult:= SCCollapseLex(A);
+    # Assign values and print results
+    lexDim := Int(lexResult.Dim);
+    lexNumV := Int(SCNumFaces(lexResult,0));
+    Print("Dimension of Lex test: ", String(lexDim), "\n");
+    Print("Number of Vertices from Lex test: ", lexNumV, "\n");
+    if lexDim = 0 and lexNumV = 1 then
+        Print("SC is collapsable! using the SCCollapseLex method.");
+        Print("\n******************DONE*************************\n");
+        success := true;
+        QUIT_GAP(0);
+    fi;
+    Print("\n");
+fi;
+if not success then
+    revlexResult:= SCCollapseRevLex(A);
+    # Assign values and print results
+    revlexDim := Int(revlexResult.Dim);
+    revlexNumV := Int(SCNumFaces(revlexResult,0));
+    Print("Dimension of RevLex test: ", String(revlexDim), "\n");
+    Print("Number of Vertices from RevLex test: ", revlexNumV, "\n");
+    if revlexDim = 0 and revlexNumV = 1 then
+        Print("SC is collapsable! using the SCCollapseRevLex method.");
+        Print("\n******************DONE*************************\n");
+        success := true;
+        QUIT_GAP(0);
+    fi;
+    Print("\n");
+fi;
+if not success then
+    Print("There is no hope for human kind.");
+fi;
+Print("\n******************DONE*************************\n");

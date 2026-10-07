@@ -1,0 +1,18 @@
+file := "<<<FILE_NAME>>>";
+SC_Name := "<<<SC_NAME>>>";
+# stop warning and load packing messages from printing every run
+SetInfoLevel(InfoPackageLoading, 0);
+SetInfoLevel(InfoWarning, 0);
+
+LoadPackage("simpcomp");
+Print(StringTime(Runtime()),"\n");
+# load the file containing the facets already defined.
+Read(file);
+
+A:= SCFromFacets(facets);
+
+f:=SCMorseEngstroem(A);
+
+Print(f, "\n");
+Print("\n******************DONE*************************\n");
+QUIT;
