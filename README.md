@@ -15,7 +15,7 @@ GAP templates that use the `simpcomp` package to study simplicial complexes load
 
 Macaulay2 examples using the `SimplicialComplexes` and `SimplicialDecomposability` packages.
 
-- [`vertex_decomposible_example.m2`](Macaulay2/vertex_decomposible_example.m2): Builds a simplicial complex from vertex labels and facets, tests vertex decomposability, and lists shedding vertices. Replace the example vertex and facet placeholders with actual data; setting `M2_BUILD_ONLY=1` runs only the construction step.
+- [`vertex_decomposible_example.m2`](Macaulay2/vertex_decomposible_example.m2): Builds a simplicial complex from vertex labels and facets, tests vertex decomposability, and lists shedding vertices. Replace the example vertex and facet placeholders with actual data.
 
 ### `SageMath/`
 
