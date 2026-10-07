@@ -34,13 +34,6 @@ print (
     " labelled vertices and " | toString(#(facets Delta)) | " facets."
     );
 
--- Diagnostic mode for quickly verifying facet loading and construction in a
--- separate container. It does not affect normal runs unless explicitly set.
-if getenv "M2_BUILD_ONLY" == "1" then (
-    print "BUILD_ONLY: Complex construction finished; skipping decomposition.";
-    exit 0;
-    );
-
 print "PROGRESS 4/6: Starting the vertex-decomposability test; this may take a long time...";
 
 VertexDecomp = isVertexDecomposable Delta;
